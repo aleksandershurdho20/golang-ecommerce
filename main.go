@@ -17,6 +17,10 @@ func main() {
 
 	router.POST("/signup", controllers.SignUpController)
 	router.POST("/signin", controllers.SignInController)
+	router.POST("/product/create", controllers.CreateProduct)
+	router.GET("/products", controllers.GetProducts)
+	router.GET("/product/:id", controllers.GetProduct)
+	router.DELETE("/product/:id", controllers.DeleteProduct)
 
 	router.Run(":8080")
 	defer utils.Session.Close()
