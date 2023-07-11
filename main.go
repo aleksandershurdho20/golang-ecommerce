@@ -21,6 +21,10 @@ func main() {
 	router.GET("/products", controllers.GetProducts)
 	router.GET("/product/:id", controllers.GetProduct)
 	router.DELETE("/product/:id", controllers.DeleteProduct)
+	router.PUT("/update/product/:id", controllers.UpdateProduct)
+	router.POST("/order", controllers.CreateOrder)
+	router.GET("/orders", controllers.GetAllOrders)
+	router.GET("/orders/client/:id", controllers.GetOrdersByClientID)
 
 	router.Run(":8080")
 	defer utils.Session.Close()

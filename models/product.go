@@ -86,3 +86,30 @@ func DeleteProduct(id string) error {
 	return nil
 }
 
+func UpdateProduct(id string, updatedProduct *Product) error {
+	session := utils.GetDBSession()
+	defer session.Close()
+
+	collection := session.DB("ecommerce").C("products")
+
+	// Create an update query
+	updateQuery := bson.M{
+		"$set": bson.M{
+			"title":       updatedProduct.Title,
+			"price":       updatedProduct.Price,
+			"quantity":    updatedProduct.Quantity,
+			"description": updatedProduct.Description,
+			"category":    updatedProduct.Category,
+			"updated_at":  time.Now(),
+		},
+	}
+
+	err := collection.UpdateId(bson.ObjectIdHex(id), updateQuery)
+	if err != nil {
+		log.Println("Error executing update query:", err)
+		return err
+	}
+
+	return nil
+}
+

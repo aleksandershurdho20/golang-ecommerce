@@ -75,3 +75,21 @@ func GetProduct(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"product": product})
 }
+
+func UpdateProduct(c *gin.Context) {
+	productID := c.Param("id")
+
+	var updatedProduct models.Product
+	if err := c.ShouldBindJSON(&updatedProduct); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error_message": err.Error()})
+		return
+	}
+
+	err := models.UpdateProduct(productID, &updatedProduct)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error_message": "Server error!"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"success_message": "Product updated successfully"})
+}
