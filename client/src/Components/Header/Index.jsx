@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 
 export default function Header() {
+  const {cart} = useSelector((state) => state.Cart)
     return (
       <>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,7 +21,7 @@ export default function Header() {
               <button className="btn btn-outline-dark" type="submit">
                 Cart
                 <span className="badge bg-dark text-white ms-1 rounded-pill">
-                  0
+                  {cart.length}
                 </span>
               </button>
             </div>

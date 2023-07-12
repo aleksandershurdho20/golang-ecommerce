@@ -4,19 +4,24 @@ import (
 	"github.com/gin-gonic/gin"
 	"ecommerce/app/controllers"
 	"ecommerce/app/utils"
+	"github.com/gin-contrib/cors"
 
 )
 
 func main() {
 	router := gin.Default()
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	router.Use(cors.New(config))
 
      err := utils.InitDatabase("mongodb://localhost:27017/ecommerce")
 	if err != nil {
 		panic(err)
 	}
 
-	router.POST("/signup", controllers.SignUpController)
-	router.POST("/signin", controllers.SignInController)
+	router.POST("/register", controllers.SignUpController)
+	router.POST("/login", controllers.SignInController)
 	router.POST("/product/create", controllers.CreateProduct)
 	router.GET("/products", controllers.GetProducts)
 	router.GET("/product/:id", controllers.GetProduct)
