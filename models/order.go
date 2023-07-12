@@ -9,11 +9,10 @@ import (
 
 
 )
-
 type Order struct {
 	ID        bson.ObjectId `bson:"_id,omitempty" json:"_id"`
 	UserID    bson.ObjectId `bson:"user_id" json:"user_id"`
-	Products  []Product `bson:"products" json:"products"`
+	Products  []Product  `bson:"products" json:"products"`
 	Address  	string     `bson:"address" json:"address"`
 	Phone  	int     `bson:"phone" json:"phone"`
 	Total     int           `bson:"total" json:"total"`
@@ -32,8 +31,9 @@ func (order *Order) Save() error {
 	return session.DB("ecommerce").C("orders").Insert(order)
 }
 
-func GetOrders() ([]Order, error) {
 
+
+func GetOrders() ([]Order, error) {
 	session := utils.GetDBSession()
 
 	collection := session.DB("ecommerce").C("orders")
@@ -44,16 +44,18 @@ func GetOrders() ([]Order, error) {
 				"from":         "products",
 				"localField":   "products",
 				"foreignField": "_id",
-				"as":           "products",
+				"as":           "productData",
 			},
 		},
 	}
+
 	var orders []Order
 	err := collection.Pipe(aggregateQuery).All(&orders)
 	if err != nil {
 		log.Println("Error executing query:", err)
 		return nil, err
 	}
+
 	defer session.Close()
 	return orders, nil
 }
