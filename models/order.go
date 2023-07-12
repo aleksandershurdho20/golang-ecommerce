@@ -75,7 +75,7 @@ func GetOrdersByClientID(clientId string) ([]Order, error) {
 				"from":         "products",
 				"localField":   "products",
 				"foreignField": "_id",
-				"as":           "products",
+				"as":           "productData",
 			},
 		},
 	}

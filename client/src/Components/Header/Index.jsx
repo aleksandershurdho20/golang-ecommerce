@@ -7,12 +7,11 @@ export default function Header() {
   const handleCartNavigation = () => navigate("cart");
   const user = JSON.parse(localStorage.getItem("user"));
 
-
-  const handleLogout = () =>{
-    localStorage.removeItem("user")
-    navigate("/")
-    window.location.reload()
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,17 +40,18 @@ export default function Header() {
                 SignIn or Register
               </Link>
             )}
-
-            <button
-              className="btn btn-outline-dark"
-              type="submit"
-              onClick={handleCartNavigation}
-            >
-              Cart
-              <span className="badge bg-dark text-white ms-1 rounded-pill">
-                {cart.length}
-              </span>
-            </button>
+            {user?.role !== "admin" && (
+              <button
+                className="btn btn-outline-dark"
+                type="submit"
+                onClick={handleCartNavigation}
+              >
+                Cart
+                <span className="badge bg-dark text-white ms-1 rounded-pill">
+                  {cart.length}
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </nav>
