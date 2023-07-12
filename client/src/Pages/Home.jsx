@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../../utils/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../redux/slices/Cart";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const { cart } = useSelector((state) => state.Cart);
+
   const dispatch = useDispatch()
   useEffect(() => {
     api
@@ -16,6 +18,8 @@ export default function Home() {
   }, []);
 
   const handleAddToCart = (data) =>{
+    const doesProductExist = cart.find(el => el._id == data._id)
+    if(doesProductExist) return;
     dispatch(addProductToCart(data))
   }
   return (

@@ -24,7 +24,8 @@ const initialState ={
   export const cartState = (state) => state.cartSlice;
   export const {
     addProductToCart,
-    removeProductFromCart
+    removeProductFromCart,
+    emptyCartProducts
     
   } = cartSlice.actions;
 

@@ -5,6 +5,7 @@ import {
 import Home from "../Pages/Home";
 import Auth from "../Pages/Auth";
 import Header from "../Components/Header";
+import Cart from "../Pages/Cart";
 
 export default function Routes() {
 
@@ -15,6 +16,7 @@ export default function Routes() {
       <RoutesComponents>
         <Route path="" element={<Home />} />
         <Route path="auth" element={<Auth />} />
+        <Route path="cart" element={<Cart />} />
 
       </RoutesComponents>
     </>

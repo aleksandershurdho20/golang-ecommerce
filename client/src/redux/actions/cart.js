@@ -14,6 +14,10 @@ export const cartActions = {
     state.cart = tempArr;
   },
 
+  emptyCartProducts:(state) =>{
+    state.cart = []
+  }
+
   
     
 };
